@@ -123,15 +123,10 @@ class App extends Component {
                   >
                     <b>
                       100 tPPC have been paid out to{" "}
-                      <span className="donate_addr">
-                        n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG{" "}
-                      </span>
-                      {address} <br />
+                      <span className="donate_addr">{address}</span>
+                      <br />
                       Transaction ID:
-                      <span className="donate_addr">
-                        7b65b660b17efcb82f4a84f1c34a27d5ef371abcd1719c8ff80ff83d96e33b8e{" "}
-                        {txID}
-                      </span>
+                      <span className="donate_addr">{txID}</span>
                     </b>
                   </div>
                 )}
