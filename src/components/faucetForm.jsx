@@ -71,7 +71,7 @@ class FaucetForm extends Component {
         >
           <ReCAPTCHA
             ref={this.recaptchaRef}
-            sitekey="6LcxrpwUAAAAABFB6T__3nwyZcTMqJLEbwa7EaH8"
+            sitekey="6Ld2vZwUAAAAAImBK9viyesKx_sGDhQ0QbWFOJq6"
             onChange={e => this.props.raiseCaptcha(e)}
             size="compact"
           />
