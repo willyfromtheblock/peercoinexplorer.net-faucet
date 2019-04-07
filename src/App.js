@@ -36,21 +36,34 @@ class App extends Component {
     const { gCaptcha } = this.state;
     this.setState({ loading: true });
 
-    const response = await http.post("/backend.php", {
+    const response = await http.post("backend.php", {
       "g-recaptcha-response": gCaptcha,
       address: data
     });
 
     let success = false;
+    let txID = "";
+    let message = "";
 
     if (response.data.result) {
       success = true;
+      txID = response.data.txid;
+    } else if (response.data.message) {
+      message = response.data.message;
     }
-    this.setState({ loading: false, success, address: data, gCaptcha: "" });
+
+    this.setState({
+      loading: false,
+      success,
+      txID,
+      message,
+      address: data,
+      gCaptcha: ""
+    });
   };
 
   render() {
-    const { loading, modalShow, success, address } = this.state;
+    const { loading, modalShow, success, address, message, txID } = this.state;
     return (
       <React.Fragment>
         <ToastContainer />
@@ -104,7 +117,10 @@ class App extends Component {
                     role="alert"
                     style={{ marginTop: "10px" }}
                   >
-                    <b>100 Testnet PPC have been paid out to {address} </b>
+                    <b>
+                      100 Testnet PPC have been paid out to {address}{" "}
+                      (Transaction ID: {txID})
+                    </b>
                   </div>
                 )}
                 {success === false && (
@@ -114,6 +130,7 @@ class App extends Component {
                     style={{ marginTop: "10px" }}
                   >
                     <b>Something went wrong. Please try again. </b>
+                    <p>{message}</p>
                   </div>
                 )}
               </div>
