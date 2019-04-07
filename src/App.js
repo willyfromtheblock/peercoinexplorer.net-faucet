@@ -5,6 +5,7 @@ import http from "./services/httpService";
 import DonationModal from "./components/donationModal";
 import Loader from "react-loader-spinner";
 import FaucetForm from "./components/faucetForm";
+import Stats from "./components/stats";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -51,6 +52,9 @@ class App extends Component {
         txID = response.data.txid;
       } else if (response.data.message) {
         message = response.data.message;
+        if (message === "Unable to connect to http://localhost:9904") {
+          message = "Unable to connect to peercoind. Please retry later.";
+        }
       }
     } else {
       message = "Please prove you're not a robot.";
@@ -110,43 +114,50 @@ class App extends Component {
                 />
                 <h1 className="jumbotron-heading">Peercoin Testnet Faucet</h1>
                 <hr />
-                <FaucetForm
-                  raiseSubmit={this.doSubmit}
-                  raiseCaptcha={this.handleCaptcha}
-                  success={success}
-                />
-                {success === true && (
-                  <div
-                    className="alert alert-success"
-                    role="alert"
-                    style={{ marginTop: "10px", wordWrap: "break-word" }}
-                  >
-                    <b>
-                      100 tPPC have been paid out to{" "}
-                      <span className="donate_addr">{address}</span>
-                      <br />
-                      Transaction ID:
-                      <span className="donate_addr">{txID}</span>
-                    </b>
+                <div class="row">
+                  <div className="col-md-6 faucetForm">
+                    <FaucetForm
+                      raiseSubmit={this.doSubmit}
+                      raiseCaptcha={this.handleCaptcha}
+                      success={success}
+                    />
+                    {success === true && (
+                      <div
+                        className="alert alert-success"
+                        role="alert"
+                        style={{ marginTop: "10px", wordWrap: "break-word" }}
+                      >
+                        <b>
+                          100 tPPC have been paid out to{" "}
+                          <span className="donate_addr">{address}</span>
+                          <br />
+                          Transaction ID:
+                          <span className="donate_addr">{txID}</span>
+                        </b>
+                      </div>
+                    )}
+                    {success === false && (
+                      <div
+                        className="alert alert-danger"
+                        role="alert"
+                        style={{ marginTop: "10px" }}
+                      >
+                        <b>Something went wrong. Please try again. </b>
+                        <p>{message}</p>
+                      </div>
+                    )}
                   </div>
-                )}
-                {success === false && (
-                  <div
-                    className="alert alert-danger"
-                    role="alert"
-                    style={{ marginTop: "10px" }}
-                  >
-                    <b>Something went wrong. Please try again. </b>
-                    <p>{message}</p>
+                  <div className="col-md-6 faucetForm">
+                    <Stats />
                   </div>
-                )}
+                </div>
 
                 <div
                   className="alert alert-secondary"
                   style={{ margin: "10px auto" }}
                   role="alert"
                 >
-                  Please send unused coins back to:{" "}
+                  Please send unused coins back to{" "}
                   <span className="donate_addr">
                     n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG
                   </span>

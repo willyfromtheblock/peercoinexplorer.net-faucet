@@ -58,3 +58,8 @@ html {
     font-size: 0.65rem !important;
   }
 }
+
+.faucetForm {
+  border: 3px groove rgba(0, 0, 0, 0.1);
+  padding: 10px;
+}

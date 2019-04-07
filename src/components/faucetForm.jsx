@@ -47,15 +47,15 @@ class FaucetForm extends Component {
   render() {
     const { data, disabled } = this.state;
     return (
-      <div>
+      <React.Fragment>
         <div className="row justify-content-md-center">
-          <div className="col-md-5">
-            <label>Payout address:</label>
-            <br />
+          <div className="col-md-10">
+            <h4>Payout address:</h4>
             <input
               type="input"
               className="form-control form-control-md"
               name="addressInput"
+              style={{ marginTop: "15px" }}
               placeholder="Enter testnet address"
               value={data["addressInput"] || ""}
               onChange={e => this.handleChange(e)}
@@ -67,7 +67,7 @@ class FaucetForm extends Component {
         </div>
         <div
           className="row"
-          style={{ display: "inline-block", margin: "20px" }}
+          style={{ display: "inline-block", margin: "15px" }}
         >
           <ReCAPTCHA
             ref={this.recaptchaRef}
@@ -77,7 +77,7 @@ class FaucetForm extends Component {
           />
         </div>
         <div className="row justify-content-md-center">
-          <div className="col-md-5">
+          <div className="col-md-6">
             <button
               disabled={disabled}
               className={this.renderButtonClass()}
@@ -88,7 +88,7 @@ class FaucetForm extends Component {
             </button>
           </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
