@@ -36,7 +36,7 @@ class App extends Component {
     const { gCaptcha } = this.state;
     this.setState({ loading: true });
 
-    const response = await http.post("backend.php", {
+    const response = await http.post("backend/backend.php", {
       "g-recaptcha-response": gCaptcha,
       address: data
     });
