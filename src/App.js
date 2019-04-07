@@ -36,14 +36,15 @@ class App extends Component {
     const { gCaptcha } = this.state;
     this.setState({ loading: true });
 
+    let success = false;
+    let message = "";
+    let txID = "";
+
+    if(data && gCaptcha) {
     const response = await http.post("backend/backend.php", {
       "g-recaptcha-response": gCaptcha,
       address: data
     });
-
-    let success = false;
-    let txID = "";
-    let message = "";
 
     if (response.data.result) {
       success = true;
@@ -51,6 +52,9 @@ class App extends Component {
     } else if (response.data.message) {
       message = response.data.message;
     }
+   } else {
+     message = "Please prove you're not a robot.";
+   } 
 
     this.setState({
       loading: false,
@@ -115,11 +119,11 @@ class App extends Component {
                   <div
                     className="alert alert-success"
                     role="alert"
-                    style={{ marginTop: "10px" }}
+                    style={{ marginTop: "10px", wordWrap: "break-word" }}
                   >
                     <b>
-                      100 Testnet PPC have been paid out to {address}{" "}
-                      (Transaction ID: {txID})
+                      100  tPPC have been paid out to <span className="donate_addr">n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG </span>{address}{" "}
+                      <br/>Transaction ID:<span className="donate_addr">7b65b660b17efcb82f4a84f1c34a27d5ef371abcd1719c8ff80ff83d96e33b8e {txID}</span>
                     </b>
                   </div>
                 )}
@@ -133,7 +137,13 @@ class App extends Component {
                     <p>{message}</p>
                   </div>
                 )}
-              </div>
+       
+              <div className="alert alert-secondary" style={{margin: "10px auto"}} role="alert">
+              Please send unused coins back to: <span className="donate_addr">
+              n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG
+            </span>
+            </div>
+            </div>
             </section>
           </main>
           <footer className="footer navbar_ppc">

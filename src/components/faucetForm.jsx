@@ -8,7 +8,8 @@ class FaucetForm extends Component {
   }
 
   state = {
-    data: ""
+    data: "",
+    disabled: true
   };
 
   handleSubmit = e => {
@@ -20,8 +21,18 @@ class FaucetForm extends Component {
   handleChange = ({ currentTarget: input }) => {
     const data = { ...this.state.data };
     data[input.name] = input.value;
-    this.setState({ data });
+    this.setState({ data }, () => this.validate());
   };
+
+  validate = () => {
+    const { data } = this.state;
+
+    if(!data["addressInput"] || data["addressInput"].length === 0) {
+      this.setState({disabled: true})
+    } else {
+      this.setState({disabled: false})
+    }
+  }
 
   renderButtonClass = () => {
     const { success } = this.props;
@@ -34,19 +45,20 @@ class FaucetForm extends Component {
   };
 
   render() {
-    const { data } = this.state;
+    const { data, disabled } = this.state;
     return (
       <div>
         <div className="form-group">
+        <label>Payout address:</label><br/>
           <input
-            type="email"
+            type="input"
             className="form-control-md"
             name="addressInput"
             placeholder="Enter testnet address"
             value={data["addressInput"] || ""}
             onChange={e => this.handleChange(e)}
           />
-          <small id="emailHelp" className="form-text text-muted">
+          <small className="form-text text-muted">
             Current Payout is <b>100</b> Testnet PPC.
           </small>
         </div>
@@ -59,6 +71,7 @@ class FaucetForm extends Component {
             onChange={e => this.props.raiseCaptcha(e)}
           />
           <button
+          disabled={disabled}
             className={this.renderButtonClass()}
             onClick={e => this.handleSubmit(e)}
             style={{ marginTop: "5px" }}
