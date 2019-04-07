@@ -27,12 +27,12 @@ class FaucetForm extends Component {
   validate = () => {
     const { data } = this.state;
 
-    if(!data["addressInput"] || data["addressInput"].length === 0) {
-      this.setState({disabled: true})
+    if (!data["addressInput"] || data["addressInput"].length === 0) {
+      this.setState({ disabled: true });
     } else {
-      this.setState({disabled: false})
+      this.setState({ disabled: false });
     }
-  }
+  };
 
   renderButtonClass = () => {
     const { success } = this.props;
@@ -48,36 +48,45 @@ class FaucetForm extends Component {
     const { data, disabled } = this.state;
     return (
       <div>
-        <div className="form-group">
-        <label>Payout address:</label><br/>
-          <input
-            type="input"
-            className="form-control-md"
-            name="addressInput"
-            placeholder="Enter testnet address"
-            value={data["addressInput"] || ""}
-            onChange={e => this.handleChange(e)}
-          />
-          <small className="form-text text-muted">
-            Current Payout is <b>100</b> Testnet PPC.
-          </small>
+        <div className="row justify-content-md-center">
+          <div className="col-md-5">
+            <label>Payout address:</label>
+            <br />
+            <input
+              type="input"
+              className="form-control form-control-md"
+              name="addressInput"
+              placeholder="Enter testnet address"
+              value={data["addressInput"] || ""}
+              onChange={e => this.handleChange(e)}
+            />
+            <small className="form-text text-muted">
+              Current Payout is <b>100</b> Testnet PPC.
+            </small>
+          </div>
         </div>
-        <div style={{ display: "inline-block" }}>
+        <div
+          className="row"
+          style={{ display: "inline-block", margin: "20px" }}
+        >
           <ReCAPTCHA
             ref={this.recaptchaRef}
             sitekey="6LcxrpwUAAAAABFB6T__3nwyZcTMqJLEbwa7EaH8"
-            size="compact"
-            badge="inline"
             onChange={e => this.props.raiseCaptcha(e)}
+            size="compact"
           />
-          <button
-          disabled={disabled}
-            className={this.renderButtonClass()}
-            onClick={e => this.handleSubmit(e)}
-            style={{ marginTop: "5px" }}
-          >
-            Request
-          </button>
+        </div>
+        <div className="row justify-content-md-center">
+          <div className="col-md-5">
+            <button
+              disabled={disabled}
+              className={this.renderButtonClass()}
+              onClick={e => this.handleSubmit(e)}
+              style={{ margin: "10px" }}
+            >
+              Request
+            </button>
+          </div>
         </div>
       </div>
     );

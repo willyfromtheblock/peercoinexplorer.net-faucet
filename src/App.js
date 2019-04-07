@@ -40,21 +40,21 @@ class App extends Component {
     let message = "";
     let txID = "";
 
-    if(data && gCaptcha) {
-    const response = await http.post("backend/backend.php", {
-      "g-recaptcha-response": gCaptcha,
-      address: data
-    });
+    if (data && gCaptcha) {
+      const response = await http.post("backend/backend.php", {
+        "g-recaptcha-response": gCaptcha,
+        address: data
+      });
 
-    if (response.data.result) {
-      success = true;
-      txID = response.data.txid;
-    } else if (response.data.message) {
-      message = response.data.message;
+      if (response.data.result) {
+        success = true;
+        txID = response.data.txid;
+      } else if (response.data.message) {
+        message = response.data.message;
+      }
+    } else {
+      message = "Please prove you're not a robot.";
     }
-   } else {
-     message = "Please prove you're not a robot.";
-   } 
 
     this.setState({
       loading: false,
@@ -122,8 +122,16 @@ class App extends Component {
                     style={{ marginTop: "10px", wordWrap: "break-word" }}
                   >
                     <b>
-                      100  tPPC have been paid out to <span className="donate_addr">n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG </span>{address}{" "}
-                      <br/>Transaction ID:<span className="donate_addr">7b65b660b17efcb82f4a84f1c34a27d5ef371abcd1719c8ff80ff83d96e33b8e {txID}</span>
+                      100 tPPC have been paid out to{" "}
+                      <span className="donate_addr">
+                        n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG{" "}
+                      </span>
+                      {address} <br />
+                      Transaction ID:
+                      <span className="donate_addr">
+                        7b65b660b17efcb82f4a84f1c34a27d5ef371abcd1719c8ff80ff83d96e33b8e{" "}
+                        {txID}
+                      </span>
                     </b>
                   </div>
                 )}
@@ -137,13 +145,27 @@ class App extends Component {
                     <p>{message}</p>
                   </div>
                 )}
-       
-              <div className="alert alert-secondary" style={{margin: "10px auto"}} role="alert">
-              Please send unused coins back to: <span className="donate_addr">
-              n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG
-            </span>
-            </div>
-            </div>
+
+                <div
+                  className="alert alert-secondary"
+                  style={{ margin: "10px auto" }}
+                  role="alert"
+                >
+                  Please send unused coins back to:{" "}
+                  <span className="donate_addr">
+                    n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG
+                  </span>
+                </div>
+              </div>
+              <GitHubButton
+                href="https://github.com/bananenwilly/peercoinexplorer.net-faucet/issues"
+                data-icon="octicon-issue-opened"
+                data-size="large"
+                data-show-count="true"
+                aria-label="Issue bananenwilly/peercoinexplorer.net-faucet on GitHub"
+              >
+                Issue
+              </GitHubButton>
             </section>
           </main>
           <footer className="footer navbar_ppc">
