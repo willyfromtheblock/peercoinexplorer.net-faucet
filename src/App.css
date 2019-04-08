@@ -4,7 +4,9 @@ html {
   background-color: #e9ecef !important;
   font-family: Roboto !important;
 }
-
+.nobreak {
+  display: inline;
+}
 .navbar_ppc {
   background-color: #333333;
 }

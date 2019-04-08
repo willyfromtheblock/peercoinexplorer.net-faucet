@@ -14,8 +14,14 @@ class App extends Component {
     loading: false,
     modalShow: false,
     gCaptcha: "",
-    success: ""
+    success: "",
+    statsData: {}
   };
+
+  async componentDidMount() {
+    const { data } = await http.get("backend/stats.json");
+    this.setState({ statsData: data });
+  }
 
   showModal = () => {
     this.setState({
@@ -71,7 +77,15 @@ class App extends Component {
   };
 
   render() {
-    const { loading, modalShow, success, address, message, txID } = this.state;
+    const {
+      loading,
+      modalShow,
+      success,
+      address,
+      message,
+      txID,
+      statsData
+    } = this.state;
     return (
       <React.Fragment>
         <ToastContainer />
@@ -114,7 +128,7 @@ class App extends Component {
                 />
                 <h1 className="jumbotron-heading">Peercoin Testnet Faucet</h1>
                 <hr />
-                <div class="row">
+                <div className="row">
                   <div className="col-md-6 faucetForm">
                     <FaucetForm
                       raiseSubmit={this.doSubmit}
@@ -148,7 +162,7 @@ class App extends Component {
                     )}
                   </div>
                   <div className="col-md-6 faucetForm">
-                    <Stats />
+                    <Stats statsData={statsData} />
                   </div>
                 </div>
 

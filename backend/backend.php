@@ -23,9 +23,23 @@ if ($response . success == false) {
 } else {
     #captcha is verified
     $success = true;
+    $amount = 100;
+    $address = $_POST["address"];
+
     try {
-        $response = $peercoin->sendtoaddress($_POST["address"], 100);
-        echo json_encode(array("result" => $success, "address" => $_POST["address"], "txid" => $response));
+        $txid = $peercoin->sendtoaddress($address, $amount);
+        $time = time();
+
+        //mysql
+        $mysqli = new mysqli('localhost', $mysqlUser, $mysqlPass, $mysqlDB);
+        if ($mysqli->connect_errno) {
+            echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+        }
+        $query = "INSERT INTO transactions (address, amount, txid, time) VALUES ('$address', '$amount', '$txid', $time)";
+        $mysqli->query($query);
+
+        //return 
+        echo json_encode(array("result" => $success, "address" => $_POST["address"], "txid" => $txid));
     } catch (Exception $e) {
         $result = $e->getMessage();
         $success = false;
