@@ -162,7 +162,7 @@ class App extends Component {
                     )}
                   </div>
                   <div className="col-md-6 faucetForm">
-                    <Stats statsData={statsData} />
+                    {statsdata && <Stats statsData={statsData} />}
                   </div>
                 </div>
 
