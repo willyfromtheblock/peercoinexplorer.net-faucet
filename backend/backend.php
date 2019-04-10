@@ -2,8 +2,6 @@
 require_once("jsonRPCClient.php");
 require_once("config.php");
 
-header("HTTP/1.1 200 OK");
-
 # verify captcha
 if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
     $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
