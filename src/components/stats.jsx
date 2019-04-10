@@ -26,7 +26,7 @@ const Stats = props => {
           </tr>
           <tr>
             <td>
-              <b>Paid out this week:</b>
+              <b>Paid out last 7 days:</b>
             </td>
             <td>{weeklyPayout} tPPC</td>
           </tr>
