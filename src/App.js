@@ -19,7 +19,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await http.get("backend/stats.json");
+    const { data } = await http.get("backend/serveStats.php");
     this.setState({ statsData: data });
   }
 
