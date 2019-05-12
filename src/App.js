@@ -6,6 +6,8 @@ import DonationModal from "./components/donationModal";
 import Loader from "react-loader-spinner";
 import FaucetForm from "./components/faucetForm";
 import Stats from "./components/stats";
+import SentryBoundary from "./components/sentry";
+import * as Sentry from "@sentry/browser";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
@@ -21,6 +23,9 @@ class App extends Component {
   async componentDidMount() {
     const { data } = await http.get("backend/serveStats.php");
     this.setState({ statsData: data });
+    Sentry.init({
+      dsn: "https://6de3fe5c0cec4d65b27e419323bc6bdb@sentry.io/1457672"
+    });
   }
 
   showModal = () => {
@@ -88,121 +93,123 @@ class App extends Component {
     } = this.state;
     return (
       <React.Fragment>
-        <ToastContainer />
-        <div
-          style={{
-            position: "absolute",
-            width: "100%",
-            minWidht: "100vw",
-            minHeight: "100vh"
-          }}
-        >
-          {loading && (
-            <div className="loader">
-              <Loader
-                type="RevolvingDot"
-                color="#3cb054"
-                height="100"
-                width="100"
-              />
-            </div>
-          )}
-          <header>
-            <div className="navbar_ppc navbar-dark shadow-sm">
-              <div className="container d-flex justify-content-between">
-                <img
-                  className="logo"
-                  style={{ maxWidth: "100vw", margin: 10 }}
-                  src="https://peercoinexplorer.net/peercoin-horizontal-greenleaf-whitetext-transparent.svg"
-                  alt="Peercoin Logo"
+        <SentryBoundary>
+          <ToastContainer />
+          <div
+            style={{
+              position: "absolute",
+              width: "100%",
+              minWidht: "100vw",
+              minHeight: "100vh"
+            }}
+          >
+            {loading && (
+              <div className="loader">
+                <Loader
+                  type="RevolvingDot"
+                  color="#3cb054"
+                  height="100"
+                  width="100"
                 />
               </div>
-            </div>
-          </header>
-          <main role="main">
-            <section className="jumbotron text-center">
-              <div className="container">
-                <DonationModal
-                  modalShow={modalShow}
-                  hideModal={this.hideModal}
-                />
-                <h1 className="jumbotron-heading">Peercoin Testnet Faucet</h1>
-                <hr />
-                <div className="row">
-                  <div className="col-md-6 faucetForm">
-                    <FaucetForm
-                      raiseSubmit={this.doSubmit}
-                      raiseCaptcha={this.handleCaptcha}
-                      success={success}
-                    />
-                    {success === true && (
-                      <div
-                        className="alert alert-success"
-                        role="alert"
-                        style={{ marginTop: "10px", wordWrap: "break-word" }}
-                      >
-                        <b>
-                          100 tPPC have been paid out to{" "}
-                          <span className="donate_addr">{address}</span>
-                          <br />
-                          Transaction ID:
-                          <span className="donate_addr">{txID}</span>
-                        </b>
-                      </div>
-                    )}
-                    {success === false && (
-                      <div
-                        className="alert alert-danger"
-                        role="alert"
-                        style={{ marginTop: "10px" }}
-                      >
-                        <b>Something went wrong. Please try again. </b>
-                        <p>{message}</p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="col-md-6 faucetForm">
-                    {statsData.balance && <Stats statsData={statsData} />}
-                  </div>
+            )}
+            <header>
+              <div className="navbar_ppc navbar-dark shadow-sm">
+                <div className="container d-flex justify-content-between">
+                  <img
+                    className="logo"
+                    style={{ maxWidth: "100vw", margin: 10 }}
+                    src="https://peercoinexplorer.net/peercoin-horizontal-greenleaf-whitetext-transparent.svg"
+                    alt="Peercoin Logo"
+                  />
                 </div>
+              </div>
+            </header>
+            <main role="main">
+              <section className="jumbotron text-center">
+                <div className="container">
+                  <DonationModal
+                    modalShow={modalShow}
+                    hideModal={this.hideModal}
+                  />
+                  <h1 className="jumbotron-heading">Peercoin Testnet Faucet</h1>
+                  <hr />
+                  <div className="row">
+                    <div className="col-md-6 faucetForm">
+                      <FaucetForm
+                        raiseSubmit={this.doSubmit}
+                        raiseCaptcha={this.handleCaptcha}
+                        success={success}
+                      />
+                      {success === true && (
+                        <div
+                          className="alert alert-success"
+                          role="alert"
+                          style={{ marginTop: "10px", wordWrap: "break-word" }}
+                        >
+                          <b>
+                            100 tPPC have been paid out to{" "}
+                            <span className="donate_addr">{address}</span>
+                            <br />
+                            Transaction ID:
+                            <span className="donate_addr">{txID}</span>
+                          </b>
+                        </div>
+                      )}
+                      {success === false && (
+                        <div
+                          className="alert alert-danger"
+                          role="alert"
+                          style={{ marginTop: "10px" }}
+                        >
+                          <b>Something went wrong. Please try again. </b>
+                          <p>{message}</p>
+                        </div>
+                      )}
+                    </div>
+                    <div className="col-md-6 faucetForm">
+                      {statsData.balance && <Stats statsData={statsData} />}
+                    </div>
+                  </div>
 
-                <div
-                  className="alert alert-secondary"
-                  style={{ margin: "10px auto" }}
-                  role="alert"
-                >
-                  Please send unused coins back to{" "}
-                  <span className="donate_addr">
-                    n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG
-                  </span>
+                  <div
+                    className="alert alert-secondary"
+                    style={{ margin: "10px auto" }}
+                    role="alert"
+                  >
+                    Please send unused coins back to{" "}
+                    <span className="donate_addr">
+                      n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <GitHubButton
-                href="https://github.com/bananenwilly/peercoinexplorer.net-faucet/issues"
-                data-icon="octicon-issue-opened"
-                data-size="large"
-                data-show-count="true"
-                aria-label="Issue bananenwilly/peercoinexplorer.net-faucet on GitHub"
-              >
-                Issue
-              </GitHubButton>
-            </section>
-          </main>
-          <footer className="footer navbar_ppc">
-            <div className="container">
-              <p className="donate_addr text-light">
-                If you're enjoying this service, please consider donating to
-                <button
-                  type="button"
-                  onClick={() => this.showModal()}
-                  className="btn btn-secondary donate_addr"
+                <GitHubButton
+                  href="https://github.com/bananenwilly/peercoinexplorer.net-faucet/issues"
+                  data-icon="octicon-issue-opened"
+                  data-size="large"
+                  data-show-count="true"
+                  aria-label="Issue bananenwilly/peercoinexplorer.net-faucet on GitHub"
                 >
-                  PA3VZmupxdsX5TuS1PyXZPsbbhZGT2htPz
-                </button>
-              </p>
-            </div>
-          </footer>
-        </div>
+                  Issue
+                </GitHubButton>
+              </section>
+            </main>
+            <footer className="footer navbar_ppc">
+              <div className="container">
+                <p className="donate_addr text-light">
+                  If you're enjoying this service, please consider donating to
+                  <button
+                    type="button"
+                    onClick={() => this.showModal()}
+                    className="btn btn-secondary donate_addr"
+                  >
+                    PA3VZmupxdsX5TuS1PyXZPsbbhZGT2htPz
+                  </button>
+                </p>
+              </div>
+            </footer>
+          </div>
+        </SentryBoundary>
       </React.Fragment>
     );
   }

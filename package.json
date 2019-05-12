@@ -4,6 +4,7 @@
   "homepage": "https://www.peercoinexplorer.net/faucet/",
   "private": true,
   "dependencies": {
+    "@sentry/browser": "^5.2.0",
     "axios": "^0.18.0",
     "bootstrap": "^4.3.1",
     "font-awesome": "^4.7.0",
@@ -14,7 +15,7 @@
     "react-github-btn": "^1.0.5",
     "react-google-recaptcha": "^1.0.5",
     "react-loader-spinner": "^2.3.0",
-    "react-scripts": "2.1.8",
+    "react-scripts": "^3.0.1",
     "react-toastify": "^5.0.0-rc.6"
   },
   "scripts": {
