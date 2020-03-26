@@ -31,6 +31,7 @@ html {
   width: 100%;
   text-align: center;
   bottom: 0px;
+  position: absolute;
 }
 
 .loader {

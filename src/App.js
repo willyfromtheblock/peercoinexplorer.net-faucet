@@ -10,6 +10,7 @@ import SentryBoundary from "./components/sentry";
 import * as Sentry from "@sentry/browser";
 import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
+import Footer from "./components/footer";
 
 class App extends Component {
   state = {
@@ -183,31 +184,20 @@ class App extends Component {
                     </span>
                   </div>
                 </div>
-                <GitHubButton
-                  href="https://github.com/bananenwilly/peercoinexplorer.net-faucet/issues"
-                  data-icon="octicon-issue-opened"
-                  data-size="large"
-                  data-show-count="true"
-                  aria-label="Issue bananenwilly/peercoinexplorer.net-faucet on GitHub"
-                >
-                  Issue
-                </GitHubButton>
+                <div style={{ marginBottom: "2.5rem" }}>
+                  <GitHubButton
+                    href="https://github.com/bananenwilly/peercoinexplorer.net-faucet/issues"
+                    data-icon="octicon-issue-opened"
+                    data-size="large"
+                    data-show-count="true"
+                    aria-label="Issue bananenwilly/peercoinexplorer.net-faucet on GitHub"
+                  >
+                    Issue
+                  </GitHubButton>
+                </div>
               </section>
             </main>
-            <footer className="footer navbar_ppc">
-              <div className="container">
-                <p className="donate_addr text-light">
-                  If you're enjoying this service, please consider donating to
-                  <button
-                    type="button"
-                    onClick={() => this.showModal()}
-                    className="btn btn-secondary donate_addr"
-                  >
-                    PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS
-                  </button>
-                </p>
-              </div>
-            </footer>
+            <Footer raiseShowModal={this.showModal} />
           </div>
         </SentryBoundary>
       </React.Fragment>
