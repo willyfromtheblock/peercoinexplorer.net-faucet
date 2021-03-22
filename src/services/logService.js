@@ -4,7 +4,9 @@ function log(error) {
   console.log(error);
 }
 
-export default {
-  init,
-  log
-};
+const logService = {
+    init,
+    log
+}
+
+export default logService;
