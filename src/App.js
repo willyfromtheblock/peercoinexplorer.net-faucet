@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { ToastContainer } from "react-toastify";
 import GitHubButton from "react-github-btn";
 import http from "./services/httpService";
-import DonationModal from "./components/donationModal";
+import QrModal from "./components/qrModal";
 import Loader from "react-loader-spinner";
 import FaucetForm from "./components/faucetForm";
 import Stats from "./components/stats";
@@ -18,7 +18,8 @@ class App extends Component {
     modalShow: false,
     gCaptcha: "",
     success: "",
-    statsData: {}
+    statsData: {},
+    modalAddr: ""
   };
 
   async componentDidMount() {
@@ -29,9 +30,10 @@ class App extends Component {
     });
   }
 
-  showModal = () => {
+  showModal = (addr) => {
     this.setState({
-      modalShow: true
+      modalShow: true,
+      modalAddr: addr
     });
   };
 
@@ -90,7 +92,8 @@ class App extends Component {
       address,
       message,
       txID,
-      statsData
+      statsData,
+      modalAddr
     } = this.state;
     return (
       <React.Fragment>
@@ -129,9 +132,10 @@ class App extends Component {
             <main role="main">
               <section className="jumbotron text-center">
                 <div className="container">
-                  <DonationModal
+                  <QrModal
                     modalShow={modalShow}
                     hideModal={this.hideModal}
+                    modalAddr={modalAddr}
                   />
                   <h1 className="jumbotron-heading">Peercoin Testnet Faucet</h1>
                   <hr />
@@ -179,9 +183,15 @@ class App extends Component {
                     role="alert"
                   >
                     Please send unused coins back to{" "}
-                    <span className="donate_addr">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        this.showModal("n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG")
+                      }
+                      className="btn donate_addr"
+                    >
                       n4pJDAqsagWbouT7G7xRH8548s9pZpQwtG
-                    </span>
+                    </button>
                   </div>
                 </div>
                 <div style={{ marginBottom: "2.5rem" }}>

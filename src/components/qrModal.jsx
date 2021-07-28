@@ -2,8 +2,8 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import QRCode from "qrcode.react";
 
-const DonationModal = props => {
-  const { modalShow, hideModal } = props;
+const QrModal = (props) => {
+  const { modalShow, hideModal, modalAddr } = props;
   return (
     <Modal
       show={modalShow}
@@ -14,13 +14,15 @@ const DonationModal = props => {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Donation address
+          {modalAddr.startsWith("n")
+            ? "Faucet return address"
+            : "Donation address"}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <div className="text-center">
-          <QRCode value="PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS" />
-          <p className="donate_addr">PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS</p>
+          <QRCode value={modalAddr} />
+          <p className="donate_addr">{modalAddr}</p>
           <i className="fa fa-thumbs-o-up" />
         </div>
       </Modal.Body>
@@ -33,4 +35,4 @@ const DonationModal = props => {
   );
 };
 
-export default DonationModal;
+export default QrModal;
