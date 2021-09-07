@@ -4,7 +4,7 @@
   "homepage": "https://www.peercoinexplorer.net/faucet/",
   "private": true,
   "dependencies": {
-    "@sentry/browser": "^5.30.0",
+    "@sentry/browser": "^6.12.0",
     "@sentry/tracing": "^6.2.3",
     "axios": "^0.21.1",
     "bootstrap": "^4.3.1",
