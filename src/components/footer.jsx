@@ -9,11 +9,11 @@ const Footer = (props) => {
           <button
             type="button"
             onClick={() =>
-              props.raiseShowModal("PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS")
+              props.raiseShowModal("PM7jjBUPjzpkZy1UZtD7mvmHoXJ2BGvbx9")
             }
             className="btn btn-secondary donate_addr"
           >
-            PPXMXETHJE3E8k6s8vmpDC18b7y5eKAudS
+            PM7jjBUPjzpkZy1UZtD7mvmHoXJ2BGvbx9
           </button>
         </p>
       </div>
