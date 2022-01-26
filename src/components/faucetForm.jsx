@@ -61,7 +61,7 @@ class FaucetForm extends Component {
               onChange={e => this.handleChange(e)}
             />
             <small className="form-text text-muted">
-              Current Payout is <b>100</b> Testnet PPC.
+              Current Payout is <b>10</b> Testnet PPC.
             </small>
           </div>
         </div>
