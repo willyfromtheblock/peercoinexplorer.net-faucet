@@ -23,7 +23,7 @@ if ($response . success == false) {
 } else {
     #captcha is verified
     $success = true;
-    $amount = 100;
+    $amount = 10;
     $address = $_POST["address"];
 
     try {
