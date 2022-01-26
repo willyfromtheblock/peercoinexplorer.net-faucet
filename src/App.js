@@ -153,7 +153,7 @@ class App extends Component {
                           style={{ marginTop: "10px", wordWrap: "break-word" }}
                         >
                           <b>
-                            100 tPPC have been paid out to{" "}
+                            10 tPPC have been paid out to{" "}
                             <span className="donate_addr">{address}</span>
                             <br />
                             Transaction ID:
