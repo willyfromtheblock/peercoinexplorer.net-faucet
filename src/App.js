@@ -157,7 +157,7 @@ class App extends Component {
                             <span className="donate_addr">{address}</span>
                             <br />
                             Transaction ID:
-                            <span className="donate_addr">{txID}</span>
+                            <div className="donate_addr">{txID}</div>
                           </b>
                         </div>
                       )}
