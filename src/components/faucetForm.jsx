@@ -4,7 +4,7 @@ import React, { Component } from "react";
 class FaucetForm extends Component {
   constructor(props) {
     super(props);
-    this.recaptchaRef = React.createRef();
+    //this.recaptchaRef = React.createRef();
   }
 
   state = {
@@ -14,7 +14,7 @@ class FaucetForm extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    this.recaptchaRef.current.reset();
+    //this.recaptchaRef.current.reset();
     this.props.raiseSubmit(this.state.data["addressInput"]);
   };
 
