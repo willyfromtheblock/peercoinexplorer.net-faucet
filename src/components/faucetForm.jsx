@@ -1,5 +1,5 @@
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 import React, { Component } from "react";
-import ReCAPTCHA from "react-google-recaptcha";
 
 class FaucetForm extends Component {
   constructor(props) {
@@ -9,10 +9,10 @@ class FaucetForm extends Component {
 
   state = {
     data: "",
-    disabled: true
+    disabled: true,
   };
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.recaptchaRef.current.reset();
     this.props.raiseSubmit(this.state.data["addressInput"]);
@@ -44,6 +44,10 @@ class FaucetForm extends Component {
     return "btn btn-primary";
   };
 
+  onVerifyCaptcha = (token) => {
+    console.log(token);
+  };
+
   render() {
     const { data, disabled } = this.state;
     return (
@@ -58,7 +62,7 @@ class FaucetForm extends Component {
               style={{ marginTop: "15px" }}
               placeholder="Enter testnet address"
               value={data["addressInput"] || ""}
-              onChange={e => this.handleChange(e)}
+              onChange={(e) => this.handleChange(e)}
             />
             <small className="form-text text-muted">
               Current Payout is <b>10</b> Testnet PPC.
@@ -69,11 +73,9 @@ class FaucetForm extends Component {
           className="row"
           style={{ display: "inline-block", margin: "15px" }}
         >
-          <ReCAPTCHA
-            ref={this.recaptchaRef}
-            sitekey="6Ld2vZwUAAAAAImBK9viyesKx_sGDhQ0QbWFOJq6"
-            onChange={e => this.props.raiseCaptcha(e)}
-            size="compact"
+          <HCaptcha
+            sitekey="9883ec3c-45e5-4fa7-9861-e85cfb1afdb5"
+            onVerify={(e) => this.props.raiseCaptcha(e)}
           />
         </div>
         <div className="row justify-content-md-center">
@@ -81,7 +83,7 @@ class FaucetForm extends Component {
             <button
               disabled={disabled}
               className={this.renderButtonClass()}
-              onClick={e => this.handleSubmit(e)}
+              onClick={(e) => this.handleSubmit(e)}
               style={{ margin: "10px" }}
             >
               Request

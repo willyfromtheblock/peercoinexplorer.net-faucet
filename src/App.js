@@ -16,7 +16,7 @@ class App extends Component {
   state = {
     loading: false,
     modalShow: false,
-    gCaptcha: "",
+    hCaptcha: "",
     success: "",
     statsData: {},
     modalAddr: ""
@@ -43,21 +43,21 @@ class App extends Component {
     });
   };
 
-  handleCaptcha = gCaptcha => {
-    this.setState({ gCaptcha });
+  handleCaptcha = hCaptcha => {
+    this.setState({ hCaptcha });
   };
 
   doSubmit = async data => {
-    const { gCaptcha } = this.state;
+    const { hCaptcha } = this.state;
     this.setState({ loading: true });
 
     let success = false;
     let message = "";
     let txID = "";
 
-    if (data && gCaptcha) {
+    if (data && hCaptcha) {
       const response = await http.post("backend/backend.php", {
-        "g-recaptcha-response": gCaptcha,
+        "h-captcha-response": hCaptcha,
         address: data
       });
 
@@ -80,7 +80,7 @@ class App extends Component {
       txID,
       message,
       address: data,
-      gCaptcha: ""
+      hCaptcha: ""
     });
   };
 
