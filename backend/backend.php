@@ -28,6 +28,7 @@ curl_setopt($verify, CURLOPT_POST, true);
 curl_setopt($verify, CURLOPT_POSTFIELDS, http_build_query($data));
 curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($verify);
+$responseData = json_decode($response);
 
 if($responseData->success) {
   #captcha is verified
@@ -54,7 +55,6 @@ if($responseData->success) {
       $success = false;
       echo json_encode(array("result" => $success, "address" => $_POST["address"], "message" => $result));
   }
-} 
-else {
+} else {
     echo json_encode(array("hCaptcha-result" => false));
 }
