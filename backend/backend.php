@@ -14,7 +14,7 @@ if (isset($_POST['h-captcha-response'])) {
     $captcha = $_POST['h-captcha-response'];
 }
 if (!$captcha) {
-    echo json_encode(array(result => false));
+    echo json_encode(array('cookie-result' => false));
     exit;
 }
 
@@ -56,5 +56,5 @@ if($responseData->success) {
   }
 } 
 else {
-    echo json_encode(array(result => false));
+    echo json_encode(array("hCaptcha-result" => false));
 }
