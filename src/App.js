@@ -56,7 +56,7 @@ class App extends Component {
     let txID = "";
 
     if (data && hCaptcha) {
-      const response = await http.post("https://faucet-core.peercoinexplorer.net/faucet/backend/backend.php", {
+      const response = await http.post("https://faucet-core.peercoinexplorer.net/backend.php", {
         "h-captcha-response": hCaptcha,
         address: data
       });
