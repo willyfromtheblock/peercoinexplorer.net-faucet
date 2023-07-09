@@ -23,7 +23,7 @@ class App extends Component {
   };
 
   async componentDidMount() {
-    const { data } = await http.get("https://peercoinexplorer.net/faucet/backend/serveStats.php");
+    const { data } = await http.get("https://faucet-core.peercoinexplorer.net/serveStats.php");
     this.setState({ statsData: data });
     Sentry.init({
       dsn: "https://6de3fe5c0cec4d65b27e419323bc6bdb@sentry.io/1457672"
@@ -56,7 +56,7 @@ class App extends Component {
     let txID = "";
 
     if (data && hCaptcha) {
-      const response = await http.post("https://peercoinexplorer.net/faucet/backend/backend.php", {
+      const response = await http.post("https://faucet-core.peercoinexplorer.net/faucet/backend/backend.php", {
         "h-captcha-response": hCaptcha,
         address: data
       });

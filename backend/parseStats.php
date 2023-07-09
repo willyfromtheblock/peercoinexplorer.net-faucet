@@ -55,4 +55,4 @@ $statsArray = array(
 );
 
 //write file
-file_put_contents("/var/www/html/peercoinexplorer.net/faucet/backend/stats.json", json_encode($statsArray));
+file_put_contents("/var/www/html/faucet-core/stats.json", json_encode($statsArray));

@@ -3,7 +3,7 @@ require_once("jsonRPCClient.php");
 require_once("config.php");
 
 # cors
-header('Access-Control-Allow-Origin: https://faucet.peercoinexplorer.net');
+header('Access-Control-Allow-Origin: "https://faucet.peercoinexplorer.net"');
 header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
