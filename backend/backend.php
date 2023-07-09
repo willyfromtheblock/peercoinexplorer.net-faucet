@@ -2,6 +2,11 @@
 require_once("jsonRPCClient.php");
 require_once("config.php");
 
+# cors
+header('Access-Control-Allow-Origin: https://faucet.peercoinexplorer.net');
+header('Access-Control-Allow-Methods: GET, POST');
+header("Access-Control-Allow-Headers: X-Requested-With");
+
 # verify captcha
 if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
     $_SERVER['REMOTE_ADDR'] = $_SERVER["HTTP_CF_CONNECTING_IP"];
