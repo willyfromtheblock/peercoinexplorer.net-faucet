@@ -4,8 +4,8 @@ require_once("config.php");
 
 # cors
 header('Access-Control-Allow-Origin: https://faucet.peercoinexplorer.net');
-header('Access-Control-Allow-Methods: GET, POST');
-header("Access-Control-Allow-Headers: X-Requested-With");
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
+header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept');
 
 # verify captcha
 if (isset($_SERVER["HTTP_CF_CONNECTING_IP"])) {
