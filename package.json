@@ -1,7 +1,7 @@
 {
   "name": "faucet",
   "version": "0.1.0",
-  "homepage": "https://www.peercoinexplorer.net/faucet/",
+  "homepage": "/",
   "private": true,
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.1.0",
