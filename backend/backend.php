@@ -35,31 +35,33 @@ curl_setopt($verify, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($verify);
 $responseData = json_decode($response);
 
-if($responseData->success) {
-  #captcha is verified
-  $success = true;
-  $amount = 10;
-  $address = $_POST["address"];
+if ($responseData->success) {
+    #captcha is verified
+    $success = true;
+    $amount = 10;
 
-  try {
-      $txid = $peercoin->sendtoaddress($address, $amount);
-      $time = time();
+    $mysqli = new mysqli('localhost', $mysqlUser, $mysqlPass, $mysqlDB);
+    if ($mysqli->connect_errno) {
+        echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+    }
 
-      //mysql
-      $mysqli = new mysqli('localhost', $mysqlUser, $mysqlPass, $mysqlDB);
-      if ($mysqli->connect_errno) {
-          echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
-      }
-      $query = "INSERT INTO transactions (address, amount, txid, time) VALUES ('$address', '$amount', '$txid', $time)";
-      $mysqli->query($query);
+    $address = mysqli_real_escape_string($mysqli, trim($_POST["address"]));
 
-      //return 
-      echo json_encode(array("result" => $success, "address" => $_POST["address"], "txid" => $txid));
-  } catch (Exception $e) {
-      $result = $e->getMessage();
-      $success = false;
-      echo json_encode(array("result" => $success, "address" => $_POST["address"], "message" => $result));
-  }
+    try {
+        $txid = $peercoin->sendtoaddress($address, $amount);
+        $time = time();
+
+        //mysql
+        $query = "INSERT INTO transactions (address, amount, txid, time) VALUES ('$address', '$amount', '$txid', $time)";
+        $mysqli->query($query);
+
+        //return 
+        echo json_encode(array("result" => $success, "address" => $_POST["address"], "txid" => $txid));
+    } catch (Exception $e) {
+        $result = $e->getMessage();
+        $success = false;
+        echo json_encode(array("result" => $success, "address" => $_POST["address"], "message" => $result));
+    }
 } else {
     echo json_encode(array("hCaptcha-result" => false));
 }
