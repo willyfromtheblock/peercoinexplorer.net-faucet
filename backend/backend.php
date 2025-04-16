@@ -42,7 +42,11 @@ if ($responseData->success) {
 
     $mysqli = new mysqli('localhost', $mysqlUser, $mysqlPass, $mysqlDB);
     if ($mysqli->connect_errno) {
-        echo "Failed to connect to MySQL: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error;
+        error_log("Database connection error: (" . $mysqli->connect_errno . ") " . $mysqli->connect_error);
+
+        // Return a generic error to the client
+        echo json_encode(array("result" => false, "message" => "Internal server error"));
+        exit;
     }
 
     $address = mysqli_real_escape_string($mysqli, trim($_POST["address"]));
