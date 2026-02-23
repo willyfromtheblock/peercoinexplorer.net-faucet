@@ -3,7 +3,7 @@ import { ToastContainer } from "react-toastify";
 import GitHubButton from "react-github-btn";
 import http from "./services/httpService";
 import QrModal from "./components/qrModal";
-import Loader from "react-loader-spinner";
+import { RevolvingDot } from "react-loader-spinner";
 import FaucetForm from "./components/faucetForm";
 import Stats from "./components/stats";
 import SentryBoundary from "./components/sentry";
@@ -109,8 +109,7 @@ class App extends Component {
           >
             {loading && (
               <div className="loader">
-                <Loader
-                  type="RevolvingDot"
+                <RevolvingDot
                   color="#3cb054"
                   height="100"
                   width="100"
